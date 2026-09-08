@@ -1270,3 +1270,403 @@ body.page-leaving{opacity:.78;transition:opacity .16s ease}
 .page-explore .page-link-card.accent:hover>span{
   color:transparent;
 }
+
+/* =========================================================
+   QYXERA v19 — REAL PROOF + FINAL PREMIUM ENHANCEMENT
+   Adds a verified client-work layer and tightens Home/Work polish.
+   ========================================================= */
+
+/* Navigation gets a slightly clearer interactive state without changing layout. */
+.site-nav-cta{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.site-nav-cta:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(90deg,#6f4cff,#d32ea8 58%,#ff7a36);
+  opacity:0;
+  transition:opacity .28s ease;
+}
+.site-nav-cta:hover{background:#111018}
+.site-nav-cta:hover:before{opacity:1}
+
+/* Home: real client proof bridge between the hero and the page directory. */
+.home-client-proof{
+  padding:34px 0 112px;
+  background:
+    radial-gradient(circle at 16% 24%,rgba(111,76,255,.055),transparent 27%),
+    linear-gradient(180deg,#fff 0%,#fbf9fd 100%);
+}
+.home-client-card{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  min-height:410px;
+  overflow:hidden;
+  border:1px solid #e5dfeb;
+  border-radius:34px;
+  background:#fff;
+  color:#17121f!important;
+  text-decoration:none!important;
+  box-shadow:0 26px 70px rgba(38,24,58,.075);
+  transition:transform .38s cubic-bezier(.2,.75,.2,1),box-shadow .38s ease,border-color .38s ease;
+}
+.home-client-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(111,76,255,.27);
+  box-shadow:0 34px 90px rgba(48,28,78,.12);
+}
+.home-client-visual{
+  position:relative;
+  min-height:410px;
+  overflow:hidden;
+  background:linear-gradient(145deg,#fff5cf,#ffe158);
+}
+.home-client-visual:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(90deg,transparent 62%,rgba(255,255,255,.14));
+}
+.home-client-visual img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  transition:transform .65s cubic-bezier(.2,.75,.2,1);
+}
+.home-client-card:hover .home-client-visual img{transform:scale(1.025)}
+.home-client-copy{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:clamp(34px,4vw,58px);
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,122,54,.075),transparent 32%),
+    radial-gradient(circle at 0% 100%,rgba(111,76,255,.075),transparent 38%),
+    #fff;
+}
+.home-client-copy:after{
+  content:"Q";
+  position:absolute;
+  right:28px;
+  bottom:-28px;
+  font-size:150px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.09em;
+  color:rgba(111,76,255,.035);
+  pointer-events:none;
+}
+.client-proof-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  width:max-content;
+  margin-bottom:30px;
+  padding:8px 11px;
+  border:1px solid rgba(111,76,255,.16);
+  border-radius:999px;
+  background:#faf8ff;
+  color:#5a3ddb;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.13em;
+}
+.client-proof-badge i{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#60d99a;
+  box-shadow:0 0 10px rgba(96,217,154,.6);
+}
+.home-client-copy small{
+  display:block;
+  margin-bottom:10px;
+  color:#7a7280;
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.home-client-copy h2{
+  max-width:610px;
+  margin:0;
+  font-size:clamp(36px,4vw,58px);
+  line-height:.98;
+  letter-spacing:-.052em;
+}
+.home-client-copy p{
+  max-width:610px;
+  margin:20px 0 0;
+  color:#706978;
+  font-size:15px;
+  line-height:1.68;
+}
+.client-service-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:27px;
+}
+.client-service-row span,.real-client-services span{
+  padding:8px 10px;
+  border:1px solid #e7e1ec;
+  border-radius:999px;
+  background:rgba(255,255,255,.82);
+  color:#4f4857;
+  font-size:10px;
+  font-weight:800;
+}
+.home-client-copy>strong{
+  position:relative;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  width:max-content;
+  margin-top:34px;
+  font-size:12px;
+  font-weight:900;
+  background:linear-gradient(90deg,#6f4cff,#d32ea8 58%,#ff7a36);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.home-client-copy>strong span{transition:transform .28s ease}
+.home-client-card:hover .home-client-copy>strong span{transform:translate(3px,-2px)}
+
+/* Home directory: make card 06 feel intentional rather than simply another white card. */
+.page-explore .page-link-card.accent{
+  background:
+    radial-gradient(circle at 90% 12%,rgba(255,122,54,.13),transparent 34%),
+    radial-gradient(circle at 9% 92%,rgba(111,76,255,.12),transparent 38%),
+    linear-gradient(145deg,#fcfaff 0%,#fff 53%,#fff8f3 100%);
+}
+.page-explore .page-link-card.accent:after{
+  content:"06";
+  position:absolute;
+  right:20px;
+  bottom:-18px;
+  font-size:104px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.08em;
+  color:rgba(111,76,255,.045);
+  pointer-events:none;
+}
+.page-explore .page-link-card.accent>*{position:relative;z-index:1}
+
+/* Work page: one real client collaboration, presented without invented KPIs. */
+.work-client-section{
+  padding:118px 0 126px;
+  background:
+    radial-gradient(circle at 88% 18%,rgba(255,122,54,.07),transparent 24%),
+    radial-gradient(circle at 9% 76%,rgba(111,76,255,.07),transparent 28%),
+    linear-gradient(180deg,#fff 0%,#f9f7fb 100%);
+}
+.real-client-card{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);
+  overflow:hidden;
+  min-height:560px;
+  border:1px solid #e4deea;
+  border-radius:34px;
+  background:#fff;
+  box-shadow:0 28px 84px rgba(40,23,63,.085);
+}
+.real-client-media{
+  position:relative;
+  min-height:560px;
+  overflow:hidden;
+  background:#17121f;
+}
+.real-client-media:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.real-client-media img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  transition:transform .7s cubic-bezier(.2,.75,.2,1);
+}
+.real-client-card:hover .real-client-media img{transform:scale(1.018)}
+.real-client-browser{
+  position:absolute;
+  z-index:2;
+  left:18px;
+  right:18px;
+  top:18px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:0 13px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;
+  background:rgba(18,14,28,.72);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 10px 25px rgba(0,0,0,.18);
+}
+.real-client-browser span{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:rgba(255,255,255,.33);
+}
+.real-client-browser small{
+  margin-left:6px;
+  color:rgba(255,255,255,.62);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.08em;
+}
+.real-client-copy{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:clamp(36px,4.3vw,64px);
+  overflow:hidden;
+}
+.real-client-copy:after{
+  content:"Q";
+  position:absolute;
+  right:-18px;
+  bottom:-42px;
+  font-size:220px;
+  line-height:1;
+  font-weight:900;
+  color:rgba(111,76,255,.035);
+  pointer-events:none;
+}
+.real-client-copy>small{
+  position:relative;
+  z-index:1;
+  color:#8b8391;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.15em;
+}
+.real-client-copy h3{
+  position:relative;
+  z-index:1;
+  margin:11px 0 18px;
+  font-size:clamp(42px,5vw,68px);
+  line-height:.94;
+  letter-spacing:-.06em;
+}
+.real-client-copy>p{
+  position:relative;
+  z-index:1;
+  max-width:570px;
+  margin:0;
+  color:#706878;
+  font-size:15px;
+  line-height:1.72;
+}
+.real-client-services{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:25px;
+}
+.real-client-scope{
+  position:relative;
+  z-index:1;
+  margin-top:30px;
+  padding-top:22px;
+  border-top:1px solid #ece7ef;
+}
+.real-client-scope span{
+  display:block;
+  margin-bottom:7px;
+  color:#9a929f;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.real-client-scope strong{
+  display:block;
+  max-width:560px;
+  color:#302a36;
+  font-size:13px;
+  line-height:1.6;
+}
+.real-client-copy>a{
+  position:relative;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  width:max-content;
+  margin-top:30px;
+  color:#17121f;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:900;
+}
+.real-client-copy>a:before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-5px;
+  height:2px;
+  background:linear-gradient(90deg,#6f4cff,#d32ea8,#ff7a36);
+  transform:scaleX(.25);
+  transform-origin:left;
+  transition:transform .3s ease;
+}
+.real-client-copy>a:hover:before{transform:scaleX(1)}
+
+/* Small layout refinements for better rhythm on large screens. */
+@media(min-width:1180px){
+  .page-explore .page-link-card{min-height:282px}
+  .work-client-section .page-section-head{margin-bottom:46px}
+}
+
+@media(max-width:980px){
+  .home-client-card,.real-client-card{grid-template-columns:1fr}
+  .home-client-visual{min-height:360px}
+  .real-client-media{min-height:430px}
+  .real-client-card{min-height:0}
+  .home-client-proof{padding-bottom:92px}
+  .work-client-section{padding:96px 0 104px}
+}
+
+@media(max-width:680px){
+  .home-client-proof{padding:18px 0 78px}
+  .home-client-card,.real-client-card{border-radius:24px}
+  .home-client-visual{min-height:250px}
+  .home-client-copy{padding:30px 24px 34px}
+  .home-client-copy h2{font-size:clamp(34px,10.5vw,46px)}
+  .client-proof-badge{margin-bottom:22px}
+  .work-client-section{padding:78px 0 84px}
+  .real-client-media{min-height:300px}
+  .real-client-browser{left:12px;right:12px;top:12px}
+  .real-client-copy{padding:32px 24px 38px}
+  .real-client-copy h3{font-size:clamp(42px,13vw,56px)}
+  .real-client-copy:after{font-size:160px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .home-client-card,.home-client-visual img,.real-client-media img,.site-nav-cta:before{transition:none!important}
+  .home-client-card:hover,.real-client-card:hover{transform:none!important}
+}
