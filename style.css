@@ -1670,3 +1670,80 @@ body.page-leaving{opacity:.78;transition:opacity .16s ease}
   .home-client-card,.home-client-visual img,.real-client-media img,.site-nav-cta:before{transition:none!important}
   .home-client-card:hover,.real-client-card:hover{transform:none!important}
 }
+
+
+/* =========================================================
+   QYXERA v20 — HOME DIRECTORY CARD UNIFICATION
+   All six Explore cards now use the same premium treatment
+   previously reserved for card 06.
+   ========================================================= */
+.page-explore .page-link-card,
+.page-explore .page-link-card.accent{
+  background:
+    radial-gradient(circle at 90% 12%,rgba(255,122,54,.13),transparent 34%),
+    radial-gradient(circle at 9% 92%,rgba(111,76,255,.12),transparent 38%),
+    linear-gradient(145deg,#fcfaff 0%,#fff 53%,#fff8f3 100%);
+  color:#17121f;
+  border:1px solid rgba(111,76,255,.18);
+  box-shadow:0 16px 48px rgba(55,34,83,.07);
+}
+.page-explore .page-link-card small,
+.page-explore .page-link-card.accent small{
+  color:#6f4cff;
+}
+.page-explore .page-link-card h3,
+.page-explore .page-link-card.accent h3{
+  color:#17121f;
+}
+.page-explore .page-link-card p,
+.page-explore .page-link-card.accent p{
+  color:#756d7b;
+}
+.page-explore .page-link-card>span,
+.page-explore .page-link-card.accent>span{
+  background:linear-gradient(90deg,#6f4cff,#d32ea8 58%,#ff7a36);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.page-explore .page-link-card:after,
+.page-explore .page-link-card.accent:after{
+  content:attr(data-number);
+  position:absolute;
+  right:20px;
+  bottom:-18px;
+  font-size:104px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.08em;
+  color:rgba(111,76,255,.045);
+  pointer-events:none;
+}
+.page-explore .page-link-card>*{
+  position:relative;
+  z-index:1;
+}
+.page-explore .page-link-card:hover,
+.page-explore .page-link-card.accent:hover{
+  transform:translateY(-7px);
+  border-color:rgba(111,76,255,.36);
+  box-shadow:0 26px 68px rgba(69,42,108,.13);
+}
+.page-explore .page-link-card:hover>span,
+.page-explore .page-link-card.accent:hover>span{
+  color:transparent;
+  transform:translateX(4px);
+}
+@media(max-width:680px){
+  .page-explore .page-link-card:after,
+  .page-explore .page-link-card.accent:after{
+    font-size:82px;
+    right:16px;
+    bottom:-12px;
+  }
+}
+
+/* Keep the top accent line identical across all six directory cards. */
+.page-explore .page-link-card:before{
+  background:linear-gradient(90deg,#a98cff,#e44bbb,#ff8b4d);
+}
