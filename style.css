@@ -255,7 +255,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #8b72ff;outline-offset:4p
 .page-hero-mark{justify-self:end;position:relative;width:min(350px,34vw);aspect-ratio:1;border:1px solid rgba(111,76,255,.25);border-radius:50%;display:grid;place-items:center}
 .page-hero-dark .page-hero-mark{border-color:rgba(255,255,255,.14)}
 .page-hero-mark:before,.page-hero-mark:after{content:"";position:absolute;inset:12%;border:1px solid rgba(111,76,255,.22);border-radius:50%}.page-hero-mark:after{inset:28%;border-style:dashed;animation:qh-spin 20s linear infinite}
-.page-hero-mark>span{font-size:clamp(78px,10vw,140px);line-height:1;font-weight:750;letter-spacing:-.0,7em;background:linear-gradient(135deg,#6f4cff,#d32ea8,#ff7a36);-webkit-background-clip:text;background-clip:text;color:transparent}
+.page-hero-mark>span{font-size:clamp(78px,10vw,140px);line-height:1;font-weight:750;letter-spacing:-0.07em;background:linear-gradient(135deg,#6f4cff,#d32ea8,#ff7a36);-webkit-background-clip:text;background-clip:text;color:transparent}
 .page-hero-mark i{position:absolute;width:10px;height:10px;border-radius:50%;background:#d32ea8;box-shadow:0 0 24px #d32ea8}.page-hero-mark i:nth-of-type(1){top:10%;left:47%}.page-hero-mark i:nth-of-type(2){bottom:18%;right:9%;background:#ff7a36;box-shadow:0 0 24px #ff7a36}
 .page-hero-mark small{position:absolute;bottom:13%;left:50%;transform:translateX(-50%);width:100%;padding:0 20px;text-align:center;white-space:nowrap;font-size:9px;font-weight:900;letter-spacing:.16em;line-height:1.55;box-sizing:border-box}
 .page-section-head{display:grid;grid-template-columns:1.25fr .75fr;gap:80px;align-items:end;margin-bottom:45px}.page-section-head h2{margin:10px 0 0;font-size:clamp(42px,6vw,76px);line-height:.98;letter-spacing:-.055em}.page-section-head p{margin:0;color:#7b7482;line-height:1.7;max-width:540px}.qh-dark .page-section-head p,.page-team-values .page-section-head p{color:rgba(255,255,255,.6)}
@@ -1226,4 +1226,47 @@ body.page-leaving{opacity:.78;transition:opacity .16s ease}
 #home .qh-system-card .qh-orbit{
   background:radial-gradient(circle at center,rgba(111,76,255,.045),transparent 48%);
   border-radius:30px;
+}
+
+/* =========================================================
+   HOME EXPLORE CARD 06 — FINAL VISIBILITY + BRAND MATCH FIX
+   Fixes the specificity conflict where the light explore-card
+   background overrode the accent card while its text stayed white.
+   ========================================================= */
+.page-explore .page-link-card.accent{
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,122,54,.14),transparent 34%),
+    radial-gradient(circle at 0% 100%,rgba(111,76,255,.13),transparent 38%),
+    linear-gradient(145deg,#fbf9ff 0%,#fff 54%,#fff8f3 100%);
+  color:#17121f;
+  border:1px solid rgba(111,76,255,.18);
+  box-shadow:0 16px 48px rgba(55,34,83,.07);
+}
+
+.page-explore .page-link-card.accent small{
+  color:#6f4cff;
+}
+
+.page-explore .page-link-card.accent h3{
+  color:#17121f;
+}
+
+.page-explore .page-link-card.accent p{
+  color:#756d7b;
+}
+
+.page-explore .page-link-card.accent>span{
+  background:linear-gradient(90deg,#6f4cff,#d32ea8 58%,#ff7a36);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.page-explore .page-link-card.accent:hover{
+  border-color:rgba(111,76,255,.36);
+  box-shadow:0 26px 68px rgba(69,42,108,.13);
+}
+
+.page-explore .page-link-card.accent:hover>span{
+  color:transparent;
 }
