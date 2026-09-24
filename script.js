@@ -405,7 +405,7 @@
 // QYXERA v31 — Floating QYXERA Assistant chatbot.
 =======
 // QYXERA v33 — Light QYXERA Assistant chatbot.
->>>>>>> cb8d427 (Update QYXERA chatbot design)
+>>>>>>> cb8d427 (Update QYXERA chatbot design)[]
 // Replaces the old "Book a free consultation" floating CTA.
 (() => {
   if (document.querySelector('.qyxera-chat')) return;
