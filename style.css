@@ -10746,3 +10746,11 @@ body.qh-process-wheel-locked{
   }
 }
 
+
+/* QYXERA page visibility safety fix */
+.qh-reveal,
+.qh-reveal.is-visible {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
