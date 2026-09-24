@@ -200,10 +200,9 @@
           emailJsConfig.serviceId,
           emailJsConfig.templateId,
           {
-            subject,
-            from_name: fullName,
-            from_email: email,
-            reply_to: email,
+            // Variables expected by the EmailJS QYXERA template
+            name: fullName,
+            email,
             service,
             message,
             submitted_at: new Intl.DateTimeFormat('en-PH', {
@@ -211,7 +210,11 @@
               timeStyle: 'short',
               timeZone: 'Asia/Manila'
             }).format(new Date()),
-            site_url: location.origin || 'https://qyxera.com'
+            site_url: location.origin || 'https://qyxera.com',
+            subject,
+            from_name: fullName,
+            from_email: email,
+            reply_to: email
           },
           { publicKey: emailJsConfig.publicKey }
         );
