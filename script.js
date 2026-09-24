@@ -171,6 +171,11 @@
     status.textContent = message || '';
   };
 
+  const emailJsConfig = window.QYXERA_EMAILJS || {};
+  const hasEmailJsConfig = Boolean(
+    emailJsConfig.publicKey && emailJsConfig.serviceId && emailJsConfig.templateId
+  );
+
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (!form.reportValidity()) return;
@@ -178,16 +183,11 @@
     const data = new FormData(form);
     if (data.get('_honey')) return;
 
-    const payload = {
-      'Full Name': data.get('name') || '',
-      'Email Address': data.get('email') || '',
-      'Service Interested In': data.get('service') || '',
-      'Project Details': data.get('message') || '',
-      _replyto: data.get('email') || '',
-      _subject: `New QYXERA Inquiry — ${data.get('service') || 'Project'}`,
-      _template: 'box',
-      _url: location.href
-    };
+    const fullName = data.get('name') || '';
+    const email = data.get('email') || '';
+    const service = data.get('service') || 'Project';
+    const message = data.get('message') || '';
+    const subject = `New QYXERA Inquiry — ${service}`;
 
     if (submitButton) submitButton.disabled = true;
     if (submitLabel) submitLabel.textContent = 'Sending...';
@@ -195,19 +195,53 @@
     setStatus('', '');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/markchristiandiaz3@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
+      if (hasEmailJsConfig && window.emailjs) {
+        await window.emailjs.send(
+          emailJsConfig.serviceId,
+          emailJsConfig.templateId,
+          {
+            subject,
+            from_name: fullName,
+            from_email: email,
+            reply_to: email,
+            service,
+            message,
+            submitted_at: new Intl.DateTimeFormat('en-PH', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+              timeZone: 'Asia/Manila'
+            }).format(new Date()),
+            site_url: location.origin || 'https://qyxera.com'
+          },
+          { publicKey: emailJsConfig.publicKey }
+        );
+      } else {
+        // Safe fallback while EmailJS IDs are not configured yet.
+        const payload = {
+          'Full Name': fullName,
+          'Email Address': email,
+          'Service Interested In': service,
+          'Project Details': message,
+          _replyto: email,
+          _subject: subject,
+          _template: 'box',
+          _url: location.href
+        };
 
-      let result = {};
-      try { result = await response.json(); } catch (_) {}
-      if (!response.ok || result.success === false) {
-        throw new Error(result.message || 'Unable to submit inquiry.');
+        const response = await fetch('https://formsubmit.co/ajax/markchristiandiaz3@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        let result = {};
+        try { result = await response.json(); } catch (_) {}
+        if (!response.ok || result.success === false) {
+          throw new Error(result.message || 'Unable to submit inquiry.');
+        }
       }
 
       form.reset();
