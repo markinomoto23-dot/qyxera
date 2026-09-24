@@ -194,7 +194,7 @@
     setStatus('', '');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/waynekenbandong@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/markchristiandiaz3@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
