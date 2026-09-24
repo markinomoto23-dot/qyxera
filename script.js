@@ -163,7 +163,37 @@
   const submitButton = form.querySelector('.contact-submit');
   const submitLabel = form.querySelector('.contact-submit-label');
   const status = document.getElementById('form-status');
+  const successModal = document.getElementById('inquiry-success-modal');
+  const successDialog = successModal?.querySelector('.inquiry-success-dialog');
   const originalLabel = submitLabel ? submitLabel.textContent : 'Send Inquiry';
+  let modalReturnFocus = null;
+
+  const closeSuccessModal = () => {
+    if (!successModal) return;
+    successModal.classList.remove('is-open');
+    successModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (modalReturnFocus && typeof modalReturnFocus.focus === 'function') modalReturnFocus.focus();
+  };
+
+  const openSuccessModal = () => {
+    if (!successModal) return;
+    modalReturnFocus = document.activeElement;
+    successModal.classList.add('is-open');
+    successModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    window.requestAnimationFrame(() => successDialog?.focus());
+  };
+
+  successModal?.querySelectorAll('[data-modal-close]').forEach(control => {
+    control.addEventListener('click', closeSuccessModal);
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && successModal?.classList.contains('is-open')) {
+      closeSuccessModal();
+    }
+  });
 
   const setStatus = (type, message) => {
     if (!status) return;
@@ -287,7 +317,8 @@
       if (!sent) throw new Error('No email delivery method succeeded.');
 
       form.reset();
-      setStatus('success', 'Thank you! Your inquiry has been sent to QYXERA. We’ll get back to you as soon as possible.');
+      setStatus('success', 'Your inquiry has been sent successfully.');
+      openSuccessModal();
       if (submitLabel) submitLabel.textContent = 'Inquiry Sent';
       if (submitButton) submitButton.classList.add('is-success');
 
