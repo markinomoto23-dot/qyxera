@@ -1,24 +1,12 @@
-# QYXERA Multi-Page Website — Full Polish v12
+# QYXERA Website
 
-Open `index.html` to preview the site.
+Clean single-folder version of the QYXERA static website.
 
-## Pages
-- `index.html` — Home
-- `about.html` — About
-- `work.html` — Work / selected systems / process
-- `services.html` — Services + proof/deliverables
-- `teams.html` — Team by role
-- `pricing.html` — Starting packages + comparison + custom scope
-- `contact.html` — Working inquiry form + next steps
-- `privacy.html` — General privacy template
-- `terms.html` — General website terms template
+## Structure
+- `index.html` and the other HTML pages
+- `style.css` and `script.js` for the main site
+- `chatbot.css` and `chatbot.js` for the QYXERA Assistant
+- `assets/` for logos, team photos, and site imagery
+- `vercel.json` for deployment
 
-## Production files
-- `style.css`
-- `script.js`
-- `assets/`
-- `robots.txt`
-- `sitemap.xml`
-- `site.webmanifest`
-
-See `DEPLOYMENT-CHECKLIST.md` before launch.
+The chatbot uses the actual `assets/qyxera-logo.jpg` logo and is loaded separately so a main-script error does not prevent the chatbot from loading.
