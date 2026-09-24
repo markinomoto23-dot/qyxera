@@ -142,7 +142,7 @@
 })();
 
 
-// Multi-page navigation and real contact-form submission.
+// Multi-page navigation and resilient contact-form submission.
 (() => {
   const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   document.querySelectorAll('.site-links a,.site-mobile-menu a').forEach(a => {
@@ -176,6 +176,75 @@
     emailJsConfig.publicKey && emailJsConfig.serviceId && emailJsConfig.templateId
   );
 
+  // EmailJS recommends initializing the browser SDK before sending.
+  if (hasEmailJsConfig && window.emailjs) {
+    try {
+      window.emailjs.init({ publicKey: emailJsConfig.publicKey });
+    } catch (error) {
+      console.warn('EmailJS initialization warning:', error);
+    }
+  }
+
+  const sendViaFormSubmit = async ({ fullName, email, service, message, subject }) => {
+    const payload = {
+      'Full Name': fullName,
+      'Email Address': email,
+      'Service Interested In': service,
+      'Project Details': message,
+      _replyto: email,
+      _subject: subject,
+      _template: 'box',
+      _url: location.href
+    };
+
+    const response = await fetch('https://formsubmit.co/ajax/markchristiandiaz3@gmail.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    let result = {};
+    try { result = await response.json(); } catch (_) {}
+
+    if (!response.ok || result.success === false) {
+      throw new Error(result.message || `FormSubmit failed with status ${response.status}.`);
+    }
+
+    return result;
+  };
+
+  const sendViaEmailJs = async ({ fullName, email, service, message, subject }) => {
+    if (!hasEmailJsConfig || !window.emailjs) {
+      throw new Error('EmailJS is unavailable or not configured.');
+    }
+
+    return window.emailjs.send(
+      emailJsConfig.serviceId,
+      emailJsConfig.templateId,
+      {
+        // Keep both common and QYXERA-specific variable names so the template
+        // can safely use {{name}}, {{from_name}}, {{email}}, or {{reply_to}}.
+        name: fullName,
+        email,
+        service,
+        message,
+        submitted_at: new Intl.DateTimeFormat('en-PH', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+          timeZone: 'Asia/Manila'
+        }).format(new Date()),
+        site_url: location.origin || 'https://qyxera.com',
+        subject,
+        from_name: fullName,
+        from_email: email,
+        reply_to: email
+      }
+    );
+  };
+
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (!form.reportValidity()) return;
@@ -183,11 +252,13 @@
     const data = new FormData(form);
     if (data.get('_honey')) return;
 
-    const fullName = data.get('name') || '';
-    const email = data.get('email') || '';
-    const service = data.get('service') || 'Project';
-    const message = data.get('message') || '';
-    const subject = `New QYXERA Inquiry — ${service}`;
+    const submission = {
+      fullName: String(data.get('name') || '').trim(),
+      email: String(data.get('email') || '').trim(),
+      service: String(data.get('service') || 'Project').trim(),
+      message: String(data.get('message') || '').trim()
+    };
+    submission.subject = `New QYXERA Inquiry — ${submission.service}`;
 
     if (submitButton) submitButton.disabled = true;
     if (submitLabel) submitLabel.textContent = 'Sending...';
@@ -195,57 +266,25 @@
     setStatus('', '');
 
     try {
+      let sent = false;
+
+      // Primary delivery: EmailJS.
       if (hasEmailJsConfig && window.emailjs) {
-        await window.emailjs.send(
-          emailJsConfig.serviceId,
-          emailJsConfig.templateId,
-          {
-            // Variables expected by the EmailJS QYXERA template
-            name: fullName,
-            email,
-            service,
-            message,
-            submitted_at: new Intl.DateTimeFormat('en-PH', {
-              dateStyle: 'medium',
-              timeStyle: 'short',
-              timeZone: 'Asia/Manila'
-            }).format(new Date()),
-            site_url: location.origin || 'https://qyxera.com',
-            subject,
-            from_name: fullName,
-            from_email: email,
-            reply_to: email
-          },
-          { publicKey: emailJsConfig.publicKey }
-        );
-      } else {
-        // Safe fallback while EmailJS IDs are not configured yet.
-        const payload = {
-          'Full Name': fullName,
-          'Email Address': email,
-          'Service Interested In': service,
-          'Project Details': message,
-          _replyto: email,
-          _subject: subject,
-          _template: 'box',
-          _url: location.href
-        };
-
-        const response = await fetch('https://formsubmit.co/ajax/markchristiandiaz3@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
-
-        let result = {};
-        try { result = await response.json(); } catch (_) {}
-        if (!response.ok || result.success === false) {
-          throw new Error(result.message || 'Unable to submit inquiry.');
+        try {
+          await sendViaEmailJs(submission);
+          sent = true;
+        } catch (emailJsError) {
+          console.warn('EmailJS failed. Trying FormSubmit fallback:', emailJsError);
         }
       }
+
+      // Automatic fallback if EmailJS is missing, disconnected, blocked, or rejected.
+      if (!sent) {
+        await sendViaFormSubmit(submission);
+        sent = true;
+      }
+
+      if (!sent) throw new Error('No email delivery method succeeded.');
 
       form.reset();
       setStatus('success', 'Thank you! Your inquiry has been sent to QYXERA. We’ll get back to you as soon as possible.');
@@ -258,7 +297,7 @@
       }, 5000);
     } catch (error) {
       console.error('Contact form error:', error);
-      setStatus('error', 'We couldn’t send your inquiry right now. Please try again, or use the email link on the left.');
+      setStatus('error', 'We couldn’t send your inquiry right now. Please try again, or email markchristiandiaz3@gmail.com directly.');
       if (submitLabel) submitLabel.textContent = 'Try Again';
     } finally {
       form.classList.remove('is-sending');
