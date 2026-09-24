@@ -179,12 +179,13 @@
     if (data.get('_honey')) return;
 
     const payload = {
-      name: data.get('name') || '',
-      email: data.get('email') || '',
-      service: data.get('service') || '',
-      message: data.get('message') || '',
-      _subject: `QYXERA Inquiry — ${data.get('service') || 'Project'}`,
-      _template: 'table',
+      'Full Name': data.get('name') || '',
+      'Email Address': data.get('email') || '',
+      'Service Interested In': data.get('service') || '',
+      'Project Details': data.get('message') || '',
+      _replyto: data.get('email') || '',
+      _subject: `New QYXERA Inquiry — ${data.get('service') || 'Project'}`,
+      _template: 'box',
       _url: location.href
     };
 
