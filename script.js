@@ -401,7 +401,11 @@
     }
   });
 })();
+<<<<<<< HEAD
 // QYXERA v31 — Floating QYXERA Assistant chatbot.
+=======
+// QYXERA v33 — Light QYXERA Assistant chatbot.
+>>>>>>> cb8d427 (Update QYXERA chatbot design)
 // Replaces the old "Book a free consultation" floating CTA.
 (() => {
   if (document.querySelector('.qyxera-chat')) return;
@@ -412,7 +416,11 @@
   chat.innerHTML = `
     <button class="qyxera-chat-launcher" type="button" aria-label="Open QYXERA Assistant" aria-expanded="false">
       <span class="qyxera-chat-launcher-logo" aria-hidden="true">
+<<<<<<< HEAD
         <img src="assets/qyxera-q-gradient.png" alt="">
+=======
+        <img src="assets/qyxera-logo.jpg" alt="">
+>>>>>>> cb8d427 (Update QYXERA chatbot design)
       </span>
       <span class="qyxera-chat-launcher-copy">
         <small><i></i> WE'RE ONLINE</small>
@@ -426,7 +434,11 @@
     <section class="qyxera-chat-panel" role="dialog" aria-modal="false" aria-label="Chat with QYXERA Assistant" aria-hidden="true">
       <header class="qyxera-chat-head">
         <div class="qyxera-chat-brand">
+<<<<<<< HEAD
           <span class="qyxera-chat-avatar" aria-hidden="true"><img src="assets/qyxera-q-gradient.png" alt=""></span>
+=======
+          <span class="qyxera-chat-avatar" aria-hidden="true"><img src="assets/qyxera-logo.jpg" alt=""></span>
+>>>>>>> cb8d427 (Update QYXERA chatbot design)
           <span class="qyxera-chat-brand-copy">
             <strong>QYXERA Assistant</strong>
             <small><i></i> Online · Here to help</small>
@@ -437,7 +449,11 @@
 
       <div class="qyxera-chat-body" aria-live="polite">
         <div class="qyxera-chat-message is-bot qyxera-chat-welcome">
+<<<<<<< HEAD
           <span class="qyxera-chat-mini-avatar" aria-hidden="true"><img src="assets/qyxera-q-gradient.png" alt=""></span>
+=======
+          <span class="qyxera-chat-mini-avatar" aria-hidden="true"><img src="assets/qyxera-logo.jpg" alt=""></span>
+>>>>>>> cb8d427 (Update QYXERA chatbot design)
           <div>
             <p><strong>Hi! 👋 I’m the QYXERA Assistant.</strong></p>
             <p><strong>How can I help you today?</strong></p>
@@ -501,7 +517,11 @@
     const row = document.createElement('div');
     row.className = `qyxera-chat-message is-${type}`;
     if (type === 'bot') {
+<<<<<<< HEAD
       row.innerHTML = `<span class="qyxera-chat-mini-avatar" aria-hidden="true"><img src="assets/qyxera-q-gradient.png" alt=""></span><div>${html}</div>`;
+=======
+      row.innerHTML = `<span class="qyxera-chat-mini-avatar" aria-hidden="true"><img src="assets/qyxera-logo.jpg" alt=""></span><div>${html}</div>`;
+>>>>>>> cb8d427 (Update QYXERA chatbot design)
     } else {
       row.innerHTML = `<div>${html}</div>`;
     }
@@ -512,7 +532,11 @@
   const addTyping = () => {
     const row = document.createElement('div');
     row.className = 'qyxera-chat-message is-bot is-typing';
+<<<<<<< HEAD
     row.innerHTML = `<span class="qyxera-chat-mini-avatar" aria-hidden="true"><img src="assets/qyxera-q-gradient.png" alt=""></span><div><span></span><span></span><span></span></div>`;
+=======
+    row.innerHTML = `<span class="qyxera-chat-mini-avatar" aria-hidden="true"><img src="assets/qyxera-logo.jpg" alt=""></span><div><span></span><span></span><span></span></div>`;
+>>>>>>> cb8d427 (Update QYXERA chatbot design)
     body.appendChild(row);
     body.scrollTo({ top: body.scrollHeight, behavior: 'smooth' });
     return row;
