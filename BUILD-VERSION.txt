@@ -1,0 +1,16 @@
+QYXERA FINAL ENHANCED BUILD
+Build: 2026-09-16
+
+This package includes the requested recent changes:
+- Home: enhanced Inside QYXERA real-photo section
+- Work: real mini website preview
+- Work: enhanced Marketing Delivery System card
+- Work: enhanced Customer Journey System card
+- Services: enhanced What Gets Delivered cards
+- About: enhanced Clarity / Connection / Momentum cards with visible illustrations
+- Services/Pricing: white Q ring with transparent background
+- Page hero Q fixes and centering
+
+IMPORTANT:
+Replace your existing C:\Users\Wayne Bandong\Documents\QYXERA folder contents
+with the contents of this package before opening index.html/about.html/etc.

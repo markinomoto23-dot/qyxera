@@ -1,5 +1,458 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#0e0c1a" name="theme-color"/><meta content="noindex,follow" name="robots"/><title>Page Not Found | QYXERA</title><link href="style.css?v=20" rel="stylesheet"/><link href="assets/qyxera-logo.jpg" rel="icon" type="image/jpeg"/></head>
-<body><div aria-hidden="true" class="site-progress"><span></span></div><header class="site-nav"><a aria-label="QYXERA home" class="site-brand" href="index.html"><span class="site-brand-logo-wrap"><img alt="QYXERA logo" class="site-brand-logo" src="assets/qyxera-logo.jpg"/></span><span>QYXERA</span></a><nav aria-label="Primary navigation" class="site-links"><a href="about.html">About</a><a href="work.html">Work</a><a href="services.html">Services</a><a href="teams.html">Teams</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact Us</a></nav><a class="site-nav-cta" href="contact.html">Contact Us <span>↗</span></a><button aria-expanded="false" aria-label="Open navigation" class="site-menu-btn" type="button"><span></span><span></span></button></header><div aria-hidden="true" class="site-mobile-menu"><a href="about.html">About</a><a href="work.html">Work</a><a href="services.html">Services</a><a href="teams.html">Teams</a><a href="pricing.html">Pricing</a><a href="contact.html">Contact Us</a></div>
-<div class="qhome"><section class="page-hero page-hero-dark legal-hero"><div aria-hidden="true" class="qh-sparks"></div><div class="qh-inner"><div class="qh-wrap"><div class="qh-kicker">404 · Page not found</div><h1>This page took a wrong <span class="qh-gradient">turn.</span></h1><p>The link may have changed or the page may no longer exist. Head back to QYXERA or explore our services.</p><div class="qh-actions" style="margin-top:30px"><a class="qh-btn primary" href="index.html">Back to Home <span>↗</span></a><a class="qh-btn secondary" href="services.html">Explore Services <span>→</span></a></div></div></div></section></div>
-<script src="script.js?v=20"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="noindex,follow"/>
+  <meta name="theme-color" content="#0e0c1a"/>
+
+  <title>Page Not Found | QYXERA Marketing Solutions</title>
+
+  <link rel="stylesheet" href="style.css?v=20260916-final-enhanced"/>
+  <link rel="icon" type="image/jpeg" href="assets/qyxera-logo.jpg"/>
+  <link rel="manifest" href="site.webmanifest"/>
+
+  <style>
+    .q404{
+      min-height:100svh;
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      padding:150px 24px 80px;
+      box-sizing:border-box;
+
+      background:
+        radial-gradient(
+          circle at 16% 18%,
+          rgba(111,76,255,.13),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 86% 76%,
+          rgba(255,122,54,.10),
+          transparent 25%
+        ),
+        linear-gradient(
+          145deg,
+          #fbf9ff 0%,
+          #fff 52%,
+          #fff8f3 100%
+        );
+
+      font-family:Inter,Roboto,Arial,sans-serif;
+      color:#17121f;
+    }
+
+    .q404:before{
+      content:"404";
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-48%);
+
+      font-size:clamp(220px,31vw,520px);
+      line-height:.8;
+      font-weight:950;
+      letter-spacing:-.09em;
+
+      color:rgba(111,76,255,.035);
+
+      pointer-events:none;
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .q404-noise{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.32;
+
+      background-image:
+        radial-gradient(
+          circle at 20% 35%,
+          rgba(111,76,255,.20) 0 1px,
+          transparent 1.5px
+        ),
+        radial-gradient(
+          circle at 74% 64%,
+          rgba(255,122,54,.16) 0 1px,
+          transparent 1.5px
+        );
+
+      background-size:29px 29px,37px 37px;
+      mask-image:linear-gradient(to bottom,#000,transparent 92%);
+    }
+
+    .q404-card{
+      position:relative;
+      z-index:2;
+
+      width:min(920px,100%);
+
+      text-align:center;
+
+      padding:72px 42px 66px;
+
+      border:1px solid rgba(111,76,255,.15);
+      border-radius:36px;
+
+      background:rgba(255,255,255,.78);
+
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+
+      box-shadow:
+        0 32px 90px rgba(42,25,66,.11),
+        inset 0 1px rgba(255,255,255,.9);
+    }
+
+    .q404-code{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+
+      margin-bottom:24px;
+
+      color:#6f4cff;
+
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .q404-code:before{
+      content:"";
+      width:28px;
+      height:1px;
+
+      background:linear-gradient(
+        90deg,
+        #6f4cff,
+        #d32ea8,
+        #ff7a36
+      );
+    }
+
+    .q404 h1{
+      max-width:760px;
+      margin:0 auto;
+
+      font-size:clamp(54px,7vw,96px);
+      line-height:.9;
+      letter-spacing:-.065em;
+      font-weight:850;
+
+      text-wrap:balance;
+    }
+
+    .q404 h1 span{
+      background:linear-gradient(
+        90deg,
+        #6f4cff,
+        #d32ea8 58%,
+        #ff7a36
+      );
+
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .q404 p{
+      max-width:620px;
+      margin:26px auto 0;
+
+      color:#716977;
+
+      font-size:16px;
+      line-height:1.72;
+    }
+
+    .q404-actions{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+
+      margin-top:34px;
+    }
+
+    .q404-home,
+    .q404-contact{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+
+      min-height:50px;
+      padding:0 20px;
+
+      border-radius:999px;
+
+      text-decoration:none;
+
+      font-size:12px;
+      font-weight:900;
+
+      transition:
+        transform .28s ease,
+        box-shadow .28s ease,
+        border-color .28s ease;
+    }
+
+    .q404-home{
+      color:#fff;
+      border:0;
+
+      background:linear-gradient(
+        90deg,
+        #6f4cff,
+        #d32ea8,
+        #ff7a36
+      );
+
+      box-shadow:
+        0 18px 42px rgba(111,76,255,.20);
+    }
+
+    .q404-contact{
+      color:#17121f;
+
+      border:1px solid #dcd5e3;
+
+      background:rgba(255,255,255,.78);
+    }
+
+    .q404-home:hover,
+    .q404-contact:hover{
+      transform:translateY(-3px);
+    }
+
+    .q404-home:hover{
+      box-shadow:
+        0 24px 52px rgba(111,76,255,.27);
+    }
+
+    .q404-contact:hover{
+      border-color:rgba(111,76,255,.35);
+    }
+
+    .q404-path{
+      display:flex;
+      justify-content:center;
+      gap:7px;
+      flex-wrap:wrap;
+
+      margin-top:42px;
+      padding-top:24px;
+
+      border-top:1px solid #e9e3ed;
+
+      color:#9b92a1;
+
+      font-size:9px;
+      font-weight:850;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    .q404-path a{
+      color:#746a7a;
+      text-decoration:none;
+
+      transition:color .2s ease;
+    }
+
+    .q404-path a:hover{
+      color:#6f4cff;
+    }
+
+    @media(max-width:680px){
+
+      .q404{
+        padding:115px 14px 44px;
+      }
+
+      .q404-card{
+        padding:52px 22px 44px;
+        border-radius:26px;
+      }
+
+      .q404 h1{
+        font-size:clamp(50px,15vw,68px);
+      }
+
+      .q404 p{
+        font-size:14px;
+      }
+
+      .q404-actions{
+        flex-direction:column;
+      }
+
+      .q404-home,
+      .q404-contact{
+        width:100%;
+        box-sizing:border-box;
+      }
+
+      .q404:before{
+        font-size:58vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div aria-hidden="true" class="site-progress">
+    <span></span>
+  </div>
+
+  <header class="site-nav">
+
+    <a
+      class="site-brand"
+      href="index.html"
+      aria-label="QYXERA home"
+    >
+      <span class="site-brand-logo-wrap">
+        <img
+          class="site-brand-logo"
+          src="assets/qyxera-logo.jpg"
+          alt="QYXERA logo"
+        />
+      </span>
+
+      <span>QYXERA</span>
+    </a>
+
+    <nav
+      class="site-links"
+      aria-label="Primary navigation"
+    >
+      <a href="about.html">About</a>
+      <a href="work.html">Work</a>
+      <a href="services.html">Services</a>
+      <a href="teams.html">Teams</a>
+      <a href="pricing.html">Pricing</a>
+    </nav>
+
+    <a
+      class="site-nav-cta"
+      href="contact.html"
+    >
+      Contact Us <span>↗</span>
+    </a>
+
+    <button
+      class="site-menu-btn"
+      type="button"
+      aria-label="Open navigation"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+    </button>
+
+  </header>
+
+
+  <div
+    class="site-mobile-menu"
+    aria-hidden="true"
+  >
+    <a href="about.html">About</a>
+    <a href="work.html">Work</a>
+    <a href="services.html">Services</a>
+    <a href="teams.html">Teams</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact Us</a>
+  </div>
+
+
+  <main class="q404">
+
+    <div
+      class="q404-noise"
+      aria-hidden="true"
+    ></div>
+
+    <section class="q404-card">
+
+      <div class="q404-code">
+        Error 404 · Page not found
+      </div>
+
+      <h1>
+        Looks like this idea went
+        <span>off the roadmap.</span>
+      </h1>
+
+      <p>
+        The page you’re looking for may have moved,
+        changed, or no longer exists.
+        Let’s get you back to something useful.
+      </p>
+
+
+      <div class="q404-actions">
+
+        <a
+          class="q404-home"
+          href="index.html"
+        >
+          Back to QYXERA
+          <span>↗</span>
+        </a>
+
+        <a
+          class="q404-contact"
+          href="contact.html"
+        >
+          Contact Us
+          <span>→</span>
+        </a>
+
+      </div>
+
+
+      <div class="q404-path">
+
+        <span>Or explore:</span>
+
+        <a href="services.html">
+          Services
+        </a>
+
+        <span>·</span>
+
+        <a href="work.html">
+          Work
+        </a>
+
+        <span>·</span>
+
+        <a href="teams.html">
+          Teams
+        </a>
+
+        <span>·</span>
+
+        <a href="pricing.html">
+          Pricing
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js?v=20260916-final-enhanced"></script>
+
+</body>
+</html>
