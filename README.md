@@ -10,3 +10,7 @@ Clean single-folder version of the QYXERA static website.
 - `vercel.json` for deployment
 
 The chatbot uses the actual `assets/qyxera-logo.jpg` logo and is loaded separately so a main-script error does not prevent the chatbot from loading.
+
+## Google Sheets inquiry tracker
+
+The Contact form can now also log inquiries to Google Sheets. See `GOOGLE-SHEETS-SETUP.md`.

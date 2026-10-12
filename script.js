@@ -215,6 +215,45 @@
     }
   }
 
+  // Optional Google Sheets inquiry logging.
+  // Configure google-sheets-config.js with your deployed Apps Script /exec URL.
+  const sheetsConfig = window.QYXERA_SHEETS || {};
+  const sheetsWebAppUrl = String(sheetsConfig.webAppUrl || '').trim();
+  const hasSheetsConfig = Boolean(
+    sheetsWebAppUrl &&
+    !sheetsWebAppUrl.includes('PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') &&
+    /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/.test(sheetsWebAppUrl)
+  );
+
+  const saveInquiryToGoogleSheet = async ({ fullName, email, service, message, subject }) => {
+    if (!hasSheetsConfig) return false;
+
+    const payload = {
+      name: fullName,
+      email,
+      service,
+      message,
+      subject,
+      submittedAt: new Date().toISOString(),
+      sourcePage: location.href,
+      referrer: document.referrer || 'Direct'
+    };
+
+    // Apps Script web apps are cross-origin. `no-cors` avoids a browser
+    // preflight while still sending the POST request to the Sheet endpoint.
+    await fetch(sheetsWebAppUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      headers: {
+        'Content-Type': 'text/plain;charset=UTF-8'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    return true;
+  };
+
   const sendViaFormSubmit = async ({ fullName, email, service, message, subject }) => {
     const payload = {
       'Full Name': fullName,
@@ -297,6 +336,17 @@
 
     try {
       let sent = false;
+      let sheetLogged = false;
+
+      // Start the spreadsheet write immediately so it does not make the
+      // visitor wait longer than necessary. Email delivery still remains
+      // independent and retains its existing fallback behavior.
+      const sheetLogPromise = hasSheetsConfig
+        ? saveInquiryToGoogleSheet(submission).catch(sheetError => {
+            console.warn('Google Sheets logging failed:', sheetError);
+            return false;
+          })
+        : Promise.resolve(false);
 
       // Primary delivery: EmailJS.
       if (hasEmailJsConfig && window.emailjs) {
@@ -316,8 +366,16 @@
 
       if (!sent) throw new Error('No email delivery method succeeded.');
 
+      sheetLogged = await sheetLogPromise;
+
       form.reset();
-      setStatus('success', 'Your inquiry has been sent successfully.');
+      if (hasSheetsConfig && sheetLogged) {
+        setStatus('success', 'Your inquiry has been sent and added to our inquiry tracker.');
+      } else if (hasSheetsConfig) {
+        setStatus('success', 'Your inquiry has been sent successfully. Spreadsheet logging could not be confirmed.');
+      } else {
+        setStatus('success', 'Your inquiry has been sent successfully.');
+      }
       openSuccessModal();
       if (submitLabel) submitLabel.textContent = 'Inquiry Sent';
       if (submitButton) submitButton.classList.add('is-success');
