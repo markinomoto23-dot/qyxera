@@ -1,12 +1,12 @@
 /**
  * QYXERA Inquiry Tracker — Google Apps Script
- *
- * Install this as a BOUND script:
- * Google Sheet > Extensions > Apps Script
- * Then deploy as a Web app.
  */
 
+const QYXERA_SPREADSHEET_ID =
+  '1-QVOFLaZCr2toUDCYRJAz4WgrrdxZ8iYYtFg5dfi06E';
+
 const QYXERA_SHEET_NAME = 'Inquiries';
+
 const QYXERA_HEADERS = [
   'Date / Time',
   'Name',
@@ -18,6 +18,7 @@ const QYXERA_HEADERS = [
   'Status'
 ];
 
+
 function doPost(e) {
   const lock = LockService.getScriptLock();
 
@@ -25,20 +26,28 @@ function doPost(e) {
     lock.waitLock(10000);
 
     const payload = parseQyxeraPayload_(e);
+
     validateQyxeraPayload_(payload);
 
-    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    let sheet = spreadsheet.getSheetByName(QYXERA_SHEET_NAME);
+    // Connect directly to your QYXERA spreadsheet
+    const spreadsheet =
+      SpreadsheetApp.openById(QYXERA_SPREADSHEET_ID);
 
+    let sheet =
+      spreadsheet.getSheetByName(QYXERA_SHEET_NAME);
+
+    // Automatically create Inquiries tab
     if (!sheet) {
-      sheet = spreadsheet.insertSheet(QYXERA_SHEET_NAME);
+      sheet =
+        spreadsheet.insertSheet(QYXERA_SHEET_NAME);
     }
 
     prepareQyxeraSheet_(sheet);
 
-    const submittedAt = payload.submittedAt
-      ? new Date(payload.submittedAt)
-      : new Date();
+    const submittedAt =
+      payload.submittedAt
+        ? new Date(payload.submittedAt)
+        : new Date();
 
     sheet.appendRow([
       submittedAt,
@@ -52,16 +61,35 @@ function doPost(e) {
     ]);
 
     const lastRow = sheet.getLastRow();
-    sheet.getRange(lastRow, 1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
 
-    return jsonResponse_({ ok: true, row: lastRow });
+    sheet
+      .getRange(lastRow, 1)
+      .setNumberFormat('yyyy-mm-dd hh:mm:ss');
+
+    return jsonResponse_({
+      ok: true,
+      row: lastRow,
+      message: 'Inquiry saved successfully.'
+    });
+
   } catch (error) {
+
     console.error(error);
-    return jsonResponse_({ ok: false, error: String(error.message || error) });
+
+    return jsonResponse_({
+      ok: false,
+      error: String(error.message || error)
+    });
+
   } finally {
-    try { lock.releaseLock(); } catch (_) {}
+
+    try {
+      lock.releaseLock();
+    } catch (_) {}
+
   }
 }
+
 
 function doGet() {
   return jsonResponse_({
@@ -71,46 +99,103 @@ function doGet() {
   });
 }
 
+
 function parseQyxeraPayload_(e) {
-  if (!e || !e.postData || !e.postData.contents) {
-    throw new Error('No inquiry payload received.');
+
+  if (
+    !e ||
+    !e.postData ||
+    !e.postData.contents
+  ) {
+    throw new Error(
+      'No inquiry payload received.'
+    );
   }
 
   try {
-    return JSON.parse(e.postData.contents);
+
+    return JSON.parse(
+      e.postData.contents
+    );
+
   } catch (_) {
-    throw new Error('Invalid inquiry payload.');
+
+    throw new Error(
+      'Invalid inquiry payload.'
+    );
+
   }
 }
+
 
 function validateQyxeraPayload_(payload) {
-  if (!payload || typeof payload !== 'object') {
-    throw new Error('Invalid inquiry data.');
+
+  if (
+    !payload ||
+    typeof payload !== 'object'
+  ) {
+    throw new Error(
+      'Invalid inquiry data.'
+    );
   }
 
-  if (!String(payload.name || '').trim()) {
-    throw new Error('Name is required.');
+  if (
+    !String(payload.name || '').trim()
+  ) {
+    throw new Error(
+      'Name is required.'
+    );
   }
 
-  const email = String(payload.email || '').trim();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    throw new Error('A valid email is required.');
+  const email =
+    String(payload.email || '').trim();
+
+  if (
+    !email ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  ) {
+    throw new Error(
+      'A valid email is required.'
+    );
   }
 
-  if (!String(payload.message || '').trim()) {
-    throw new Error('Message is required.');
+  if (
+    !String(payload.message || '').trim()
+  ) {
+    throw new Error(
+      'Message is required.'
+    );
   }
 }
 
+
 function prepareQyxeraSheet_(sheet) {
+
   if (sheet.getLastRow() === 0) {
-    sheet.getRange(1, 1, 1, QYXERA_HEADERS.length).setValues([QYXERA_HEADERS]);
+
+    sheet
+      .getRange(
+        1,
+        1,
+        1,
+        QYXERA_HEADERS.length
+      )
+      .setValues([
+        QYXERA_HEADERS
+      ]);
+
     sheet.setFrozenRows(1);
 
-    const header = sheet.getRange(1, 1, 1, QYXERA_HEADERS.length);
+    const header =
+      sheet.getRange(
+        1,
+        1,
+        1,
+        QYXERA_HEADERS.length
+      );
+
     header.setFontWeight('bold');
 
-    // Useful default widths. You can adjust these manually anytime.
     sheet.setColumnWidth(1, 150);
     sheet.setColumnWidth(2, 180);
     sheet.setColumnWidth(3, 220);
@@ -122,15 +207,20 @@ function prepareQyxeraSheet_(sheet) {
   }
 }
 
-function safeCell_(value) {
-  let text = String(value == null ? '' : value).trim();
 
-  // Keep cells manageable if a bot sends a huge payload.
+function safeCell_(value) {
+
+  let text =
+    String(
+      value == null ? '' : value
+    ).trim();
+
   if (text.length > 10000) {
-    text = text.slice(0, 10000);
+    text =
+      text.slice(0, 10000);
   }
 
-  // Prevent spreadsheet formula injection from public form submissions.
+  // Prevent formula injection
   if (/^[=+\-@]/.test(text)) {
     text = "'" + text;
   }
@@ -138,8 +228,14 @@ function safeCell_(value) {
   return text;
 }
 
+
 function jsonResponse_(data) {
+
   return ContentService
-    .createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
+    .createTextOutput(
+      JSON.stringify(data)
+    )
+    .setMimeType(
+      ContentService.MimeType.JSON
+    );
 }

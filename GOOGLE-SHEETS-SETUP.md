@@ -1,10 +1,22 @@
 # QYXERA Inquiry → Google Sheets Setup
 
-The website has already been updated to **email each inquiry as before** and, once configured, **also add it to a Google Sheet**.
+The QYXERA Contact Form sends inquiries through the existing
+email system and also saves each inquiry to Google Sheets.
 
-## What will be saved
+## Google Sheet
 
-Each inquiry becomes one row with these columns:
+Spreadsheet:
+QYXERA Website Inquiries
+
+Spreadsheet ID:
+
+1-QVOFLaZCr2toUDCYRJAz4WgrrdxZ8iYYtFg5dfi06E
+
+The Apps Script uses this Spreadsheet ID directly.
+
+## Data saved
+
+Each inquiry becomes a new row containing:
 
 - Date / Time
 - Name
@@ -13,44 +25,79 @@ Each inquiry becomes one row with these columns:
 - Message
 - Source Page
 - Referrer
-- Status (`New` by default)
+- Status
 
-## One-time setup
+Default status:
 
-1. Go to Google Sheets and create a new spreadsheet. A suggested name is **QYXERA Website Inquiries**.
-2. In that spreadsheet, open **Extensions → Apps Script**.
-3. Delete the default code in Apps Script.
-4. Open the website file `google-apps-script.gs`, copy all of it, and paste it into Apps Script.
-5. Click **Save**.
-6. In Apps Script, click **Deploy → New deployment**.
-7. Click the gear icon next to **Select type**, then choose **Web app**.
-8. Use these settings:
-   - **Execute as:** Me
-   - **Who has access:** Anyone
-9. Click **Deploy** and authorize the script when Google asks.
-10. Copy the **Web app URL**. It should look similar to:
+New
 
-   `https://script.google.com/macros/s/XXXXXXXXXXXX/exec`
+## Apps Script
 
-11. Open `google-sheets-config.js` in your QYXERA website and replace:
+The Apps Script should contain:
 
-   `PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE`
+const QYXERA_SPREADSHEET_ID =
+  '1-QVOFLaZCr2toUDCYRJAz4WgrrdxZ8iYYtFg5dfi06E';
 
-   with your real `/exec` URL.
-12. Save the file and redeploy the QYXERA website to Vercel.
+const QYXERA_SHEET_NAME = 'Inquiries';
 
-## Test
+The script automatically creates the Inquiries tab if it
+does not already exist.
 
-1. Open the live QYXERA Contact page.
-2. Send a test inquiry.
-3. Confirm the normal inquiry email still arrives.
-4. Open the Google Sheet.
-5. A sheet tab named **Inquiries** should be created automatically and your test inquiry should appear as a new row.
+## Web App Deployment
 
-## Important when editing the Apps Script later
+Deploy the Apps Script using:
 
-If you change `google-apps-script.gs` after deployment, go back to **Deploy → Manage deployments → Edit**, choose **New version**, and deploy again. You can keep the same Web app URL.
+Execute as:
+Me
 
-## Existing email behavior
+Who has access:
+Anyone
 
-The existing EmailJS + FormSubmit fallback remains in place. Google Sheets logging is an additional record of the inquiry; it does not replace your email notification.
+Current Web App URL:
+
+https://script.google.com/macros/s/AKfycbxHjrcSRTobEp544VTqRhjIe79guQyWthbofp6YrE1YmHXm2sbU8_xfZgC4ZL2bC4FDOg/exec
+
+## Website Configuration
+
+In google-sheets-config.js:
+
+window.QYXERA_SHEETS = {
+  webAppUrl:
+    'https://script.google.com/macros/s/AKfycbxHjrcSRTobEp544VTqRhjIe79guQyWthbofp6YrE1YmHXm2sbU8_xfZgC4ZL2bC4FDOg/exec'
+};
+
+## Inquiry Flow
+
+Customer submits Contact Form
+        ↓
+Email notification
+        +
+Google Apps Script
+        ↓
+QYXERA Website Inquiries
+        ↓
+Inquiries tab
+        ↓
+New row added
+
+## Testing
+
+1. Open the QYXERA Contact page.
+2. Submit a test inquiry.
+3. Confirm the normal inquiry email arrives.
+4. Open QYXERA Website Inquiries.
+5. Open the Inquiries tab.
+6. Confirm the test submission appears as a new row.
+
+## Updating Apps Script
+
+Whenever the Apps Script code is changed:
+
+Deploy
+→ Manage deployments
+→ Edit
+→ Version: New version
+→ Deploy
+
+The existing Web App URL can remain the same when updating
+the existing deployment.

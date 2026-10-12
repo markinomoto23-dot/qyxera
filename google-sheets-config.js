@@ -7,5 +7,5 @@
 //
 // The Web App URL is public by design and is safe to expose in browser code.
 window.QYXERA_SHEETS = {
-  webAppUrl: 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'
+  webAppUrl: 'https://script.google.com/macros/s/AKfycbxHjrcSRTobEp544VTqRhjIe79guQyWthbofp6YrE1YmHXm2sbU8_xfZgC4ZL2bC4FDOg/exec'
 };
