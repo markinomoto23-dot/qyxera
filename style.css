@@ -10778,3 +10778,28 @@ body.modal-open{overflow:hidden}
 }
 @media(prefers-reduced-motion:reduce){.inquiry-success-modal,.inquiry-success-dialog,.inquiry-success-orbit{transition:none;animation:none}}
 
+@media (max-width: 768px){
+
+  .explore-feature[data-number="04"]{
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .explore-feature[data-number="04"] .explore-visual{
+    order: 1 !important;
+    width: 100% !important;
+  }
+
+  .explore-feature[data-number="04"] .explore-copy{
+    order: 2 !important;
+    width: 100% !important;
+  }
+
+}
+
+/* Flip only the $ symbol inside the Pricing graphic */
+.explore-visual-pricing .explore-art svg path:last-of-type {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scaleX(-1);
+}
